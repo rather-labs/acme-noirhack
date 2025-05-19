@@ -1,3 +1,6 @@
+import { RIDDLE_FACTORY_ADDRESS } from '../../pages/RiddleDetail';
+import { useSubmitNewQuest } from '../../hooks/useSubmitNewQuest';
+import { useState } from 'react';
 import type { QuestType, QuestStatus } from './QuestCard';
 
 interface FilterBarProps {
@@ -33,34 +36,34 @@ export default function FilterBar({
   selectedStatus,
   onStatusChange,
 }: FilterBarProps) {
-  // const factory = RIDDLE_FACTORY_ADDRESS;
+  const factory = RIDDLE_FACTORY_ADDRESS;
 
-  // const { submit, status: submitStatus } = useSubmitNewQuest();
+  const { submit, status: submitStatus } = useSubmitNewQuest();
 
-  // const [isHovering, setIsHovering] = useState(false);
+  const [isHovering, setIsHovering] = useState(false);
 
-  // // New state for quest submission form
-  // const [newQuestRiddle, setNewQuestRiddle] = useState('');
-  // const [newQuestAnswer, setNewQuestAnswer] = useState('');
-  // const [newQuestBounty, setNewQuestBounty] = useState(0);
+  // New state for quest submission form
+  const [newQuestRiddle, setNewQuestRiddle] = useState('');
+  const [newQuestAnswer, setNewQuestAnswer] = useState('');
+  const [newQuestBounty, setNewQuestBounty] = useState(0);
   // Handle quest submission
-  // const handleSubmitQuest = async (e: React.FormEvent) => {
-  //   e.preventDefault();
-  //   if (!newQuestAnswer.trim()) return;
-  //   try {
-  //     await submit({
-  //       riddle: newQuestRiddle,
-  //       answer: newQuestAnswer,
-  //       bounty: newQuestBounty,
-  //       contractAddress: factory,
-  //     });
-  //     setNewQuestRiddle('');
-  //     setNewQuestAnswer('');
-  //     setNewQuestBounty(0);
-  //   } catch {
-  //     /* toast handled by hook */
-  //   }
-  // };
+  const handleSubmitQuest = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!newQuestAnswer.trim()) return;
+    try {
+      await submit({
+        riddle: newQuestRiddle,
+        answer: newQuestAnswer,
+        bounty: newQuestBounty,
+        contractAddress: factory,
+      });
+      setNewQuestRiddle('');
+      setNewQuestAnswer('');
+      setNewQuestBounty(0);
+    } catch {
+      /* toast handled by hook */
+    }
+  };
 
   return (
     <section
@@ -87,7 +90,7 @@ export default function FilterBar({
         })}
       </div>
 
-      {/* <div>
+      <div>
         <div className="relative">
           <button
             type="button"
@@ -186,7 +189,7 @@ export default function FilterBar({
               </div>
             )}
         </div>
-      </div> */}
+      </div>
 
       {/* Status toggle---- */}
       <div className="flex gap-2 text-xs uppercase tracking-wide">
